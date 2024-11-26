@@ -31,9 +31,12 @@ const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [dob, setDoB] = useState("");
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
 
   const validateInputs = () => {
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !dob || !weight || !height)  {
       alert("Please fill in all fields");
       return false;
     }
@@ -43,8 +46,9 @@ const SignUp = () => {
   const handelSignUp = async () => {
     setLoading(true);
     setButtonDisabled(true);
+    console.log(dob)
     if (validateInputs()) {
-      await UserSignUp({ name, email, password })
+      await UserSignUp({ name, email, password,dob, weight, height })
         .then((res) => {
           dispatch(loginSuccess(res.data));
           alert("Account Created Success");
@@ -89,6 +93,24 @@ const SignUp = () => {
           password
           value={password}
           handelChange={(e) => setPassword(e.target.value)}
+        />
+        <TextInput
+          label="DoB"
+          placeholder="MM/DD/YYYY"
+          value={dob}
+          handelChange={(e) => setDoB(e.target.value)}
+        />
+        <TextInput
+          label="weight"
+          placeholder="in lbs"
+          value={weight}
+          handelChange={(e) => setWeight(e.target.value)}
+        />
+        <TextInput
+          label="height"
+          placeholder="in inches"
+          value={height}
+          handelChange={(e) => setHeight(e.target.value)}
         />
         <Button
           text="SignUp"
